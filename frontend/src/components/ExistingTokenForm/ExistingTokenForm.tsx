@@ -2,7 +2,7 @@
 import { useState, useRef, useContext } from "react";
 import { ethers } from "ethers";
 import axios from "axios";
-import daomanagerabi from "../../utils/abis/daomanagerabi.json";
+import daomanagerabi from "../../utils/abis/DAOManager.json";
 import {
   Progress,
   Box,

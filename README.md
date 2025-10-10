@@ -1,8 +1,16 @@
-# DAOTown - Create DAOs in minutes!
+# DAOTown - Decentralized Autonomous Organizations Made Easy
 
-DAOTown on NeoX T4 revolutionizes DAO management by breaking down technical barriers for seamless governance and tokenomics.
+Create and manage DAOs in minutes on **U2U Network**.
 
-Managing DAOs often demands technical skills, limiting participation. Our project simplifies governance and tokenomics using decentralized infrastructure, making DAO management more accessible, efficient, and user-friendly for all.
+DAOTown revolutionizes DAO management by breaking down technical barriers for seamless governance and tokenomics. Simplifying decentralized governance for everyone.
+
+## 🌐 Deployment
+
+**Network**: U2U Network Nebulas (Testnet)  
+**Chain ID**: 2484  
+**Status**: ✅ Live
+
+📋 **See [DEPLOYED_CONTRACTS.txt](./DEPLOYED_CONTRACTS.txt) for contract addresses and explorer links.**
 
 ## Tech Stack 🧰
 
@@ -17,7 +25,8 @@ Managing DAOs often demands technical skills, limiting participation. Our projec
 - JavaScript
 - Chakra UI
 - Lighthouse Storage (IPFS gateway)
-- NeoX T4
+- U2U Network (EVM-compatible)
+- MACI (Minimal Anti-Collusion Infrastructure)
 
 ## Foundry Setup 🚧
 
@@ -69,10 +78,16 @@ make build
 
 #### Deployment
 
-The Makefile is set up for deployment on NeoX T4 Testnet.
+The Makefile is set up for deployment on U2U Network.
 
+**Deploy to U2U Testnet (Nebulas):**
 ```bash
-make deploy ARGS="--network neox"
+make deploy ARGS="--network u2u_testnet"
+```
+
+**Deploy to U2U Mainnet (Solaris):**
+```bash
+make deploy ARGS="--network u2u_mainnet"
 ```
 
 ## Frontend Setup 🚧
@@ -105,10 +120,28 @@ yarn
 yarn run dev
 ```
 
+## 🔑 Environment Setup
 
+### **Contracts (.env)**
+```bash
+PRIVATE_KEY=your_private_key_without_0x
+```
 
-<!-- ## Deployed & Verified contracts on NeoX Network -
+### **Frontend (.env.local)**
+```bash
+NEXT_PUBLIC_DAOMANAGER_ADDRESS=0x8c2786cfc456232a4017658481C71a3FF3676418
+NEXT_PUBLIC_CREATE_GOVERNANACE_ADDRESS=0xbDD418Ea726a0b53662E42429BDAB867Ac746aAe
+NEXT_PUBLIC_RPC_URL=https://rpc-nebulas-testnet.u2u.xyz
+NEXT_PUBLIC_LIGHTHOUSE_API_KEY=your_lighthouse_api_key
+```
 
-- DAOManager.sol: [0x...](#)
-- GovernanceToken.sol: [0x...](#)
-- CreateGovernanceToken.sol: [0x...](#) -->
+Get your Lighthouse API key from: https://files.lighthouse.storage/
+
+## ⚡ Key Features
+
+- **Create DAOs**: Deploy governance tokens and DAOs in minutes
+- **Token-Gated Access**: Set joining and proposal thresholds
+- **Voting Systems**: Standard and Quadratic Voting (QV)
+- **IPFS Storage**: Decentralized document storage
+- **Discord Integration**: Automatic DAO channel creation
+- **MACI Support**: Privacy-preserving voting (optional)

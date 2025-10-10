@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { ethers } from "ethers";
 import { useAccount } from "wagmi";
 import lighthouse from "@lighthouse-web3/sdk";
-import daomanagerabi from "@/utils/abis/daomanagerabi.json";
+import daomanagerabi from "@/utils/abis/DAOManager.json";
 import DaoDetails from "@/components/DaoPageModals/DaoDetails/DaoDetails";
 import FileShare from "@/components/DaoPageModals/FileShare/FileShare";
 import ProposalTab from "@/components/DaoPageModals/ProposalTab/ProposalTab";
@@ -28,7 +28,7 @@ import {
   AbsoluteCenter,
 } from "@chakra-ui/react";
 import { CheckCircleIcon, NotAllowedIcon } from "@chakra-ui/icons";
-import GovernanceTokenAbi from "@/utils/abis/governancetokenabi.json";
+import GovernanceTokenAbi from "@/utils/abis/GovernanceToken.json";
 import { Spinner } from "@chakra-ui/react";
 
 const DaoPage = () => {

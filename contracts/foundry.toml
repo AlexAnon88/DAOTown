@@ -3,9 +3,12 @@ src = "src"
 out = "out"
 libs = ["lib"]
 
-evm_version = "shanghai"
+# Updated to Cancun for OpenZeppelin v5 compatibility
+# U2U Network is EVM-compatible and supports Cancun
+evm_version = "cancun"
 
 [rpc_endpoints]
-neox = "https://neoxt4seed1.ngd.network"
+u2u_testnet = "https://rpc-nebulas-testnet.u2u.xyz"
+u2u_mainnet = "https://rpc-mainnet.u2u.xyz"
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

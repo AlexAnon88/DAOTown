@@ -180,6 +180,16 @@ const config: HardhatUserConfig = {
       url: "https://neoxt4seed1.ngd.network",
       accounts: [deployerPrivateKey],
     },
+    u2uTestnet: {
+      url: "https://rpc-nebulas-testnet.u2u.xyz",
+      accounts: [deployerPrivateKey],
+      chainId: 2484,
+    },
+    u2uMainnet: {
+      url: "https://rpc-mainnet.u2u.xyz",
+      accounts: [deployerPrivateKey],
+      chainId: 39,
+    },
   },
   // configuration for harhdat-verify plugin
   etherscan: {

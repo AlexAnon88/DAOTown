@@ -26,7 +26,7 @@ import { AddIcon } from "@chakra-ui/icons";
 import { RiTokenSwapFill } from "react-icons/ri";
 import { MdOutlineGroups3 } from "react-icons/md";
 import { RiAdminLine } from "react-icons/ri";
-import daomanagerabi from "../../utils/abis/daomanagerabi.json";
+import daomanagerabi from "../../utils/abis/DAOManager.json";
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";

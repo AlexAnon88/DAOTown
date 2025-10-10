@@ -36,8 +36,8 @@ import {
   useToast,
   ring,
 } from "@chakra-ui/react";
-import daomanagerabi from "../../utils/abis/daomanagerabi.json";
-import creategovernanceabi from "../../utils/abis/creategovernanceabi.json";
+import daomanagerabi from "../../utils/abis/DAOManager.json";
+import creategovernanceabi from "../../utils/abis/CreateGovernanceToken.json";
 import { useSession } from "next-auth/react";
 
 const Form2 = ({ getName, getSummary }) => {

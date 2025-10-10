@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { useAccount } from "wagmi";
-import daomanagerabi from "../../utils/abis/daomanagerabi.json";
-import governancetokenabi from "../../utils/abis/governancetokenabi.json";
+import daomanagerabi from "../../utils/abis/DAOManager.json";
+import governancetokenabi from "../../utils/abis/GovernanceToken.json";
 import {
   Box,
   Container,

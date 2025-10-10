@@ -1,0 +1,105 @@
+================================================================================
+                        DAOTOWN - DEPLOYED CONTRACTS
+================================================================================
+
+Network: U2U Network Nebulas (Testnet)
+Chain ID: 2484
+Deployment Date: October 10, 2025
+Deployer: 0x73A4ecaBFb474063ab5585f72113E543E42c7201
+
+================================================================================
+                          CONTRACT ADDRESSES
+================================================================================
+
+1. DAOManager
+   Address: 0x8c2786cfc456232a4017658481C71a3FF3676418
+   Explorer: https://testnet.u2uscan.xyz/address/0x8c2786cfc456232a4017658481C71a3FF3676418
+   Transaction: 0x0ad12009a18053b0a4ba0e0794f5261f7ec4219b7f567763d1faaf2f6ece11b0
+   Block: 60795544
+   Gas Used: 3,894,260
+
+2. CreateGovernanceToken
+   Address: 0xbDD418Ea726a0b53662E42429BDAB867Ac746aAe
+   Explorer: https://testnet.u2uscan.xyz/address/0xbDD418Ea726a0b53662E42429BDAB867Ac746aAe
+   Transaction: 0x274ca8cf6665bc28807e875d0883c29d1c07f78b90a9e0cc0d919eb97e632f6d
+   Block: 60795544
+   Gas Used: 2,998,107
+
+3. GovernanceToken (Template)
+   Address: 0x7075D321d3f586445609635763eF9Dbbc6B13127
+   Explorer: https://testnet.u2uscan.xyz/address/0x7075D321d3f586445609635763eF9Dbbc6B13127
+   Transaction: 0x8e10ca5793724c849ae710e0f1fdefb143b0e1626b79f6c76bdc3cbef91634d6
+   Block: 60795542
+   Gas Used: 1,833,297
+
+================================================================================
+                          NETWORK INFORMATION
+================================================================================
+
+U2U Testnet (Nebulas):
+  - RPC URL: https://rpc-nebulas-testnet.u2u.xyz
+  - Chain ID: 2484
+  - Explorer: https://testnet.u2uscan.xyz
+  - Native Token: U2U
+  - Faucet: Check U2U Discord/Telegram
+
+U2U Mainnet (Solaris):
+  - RPC URL: https://rpc-mainnet.u2u.xyz
+  - Chain ID: 39
+  - Explorer: https://u2uscan.xyz
+  - Native Token: U2U
+
+================================================================================
+                          DEPLOYMENT COSTS
+================================================================================
+
+Total Gas Used: 8,725,664 gas
+Average Gas Price: 1.013136821 gwei
+Total Cost: 0.008840291486074144 U2U
+
+================================================================================
+                      FRONTEND CONFIGURATION
+================================================================================
+
+Add these to your frontend .env file:
+
+NEXT_PUBLIC_DAOMANAGER_ADDRESS=0x8c2786cfc456232a4017658481C71a3FF3676418
+NEXT_PUBLIC_CREATE_GOVERNANACE_ADDRESS=0xbDD418Ea726a0b53662E42429BDAB867Ac746aAe
+NEXT_PUBLIC_GOVERNANCE_TOKEN_ADDRESS=0x7075D321d3f586445609635763eF9Dbbc6B13127
+NEXT_PUBLIC_RPC_URL=https://rpc-nebulas-testnet.u2u.xyz
+NEXT_PUBLIC_CHAIN_ID=2484
+
+================================================================================
+                            VERIFICATION
+================================================================================
+
+To verify contracts on U2U explorer (if supported):
+
+forge verify-contract \
+  --chain-id 2484 \
+  --compiler-version v0.8.26+commit.8a97fa7a \
+  0x8c2786cfc456232a4017658481C71a3FF3676418 \
+  src/DAOManager.sol:DAOManager
+
+forge verify-contract \
+  --chain-id 2484 \
+  --compiler-version v0.8.26+commit.8a97fa7a \
+  0xbDD418Ea726a0b53662E42429BDAB867Ac746aAe \
+  src/CreateGovernanceToken.sol:CreateGovernanceToken
+
+forge verify-contract \
+  --chain-id 2484 \
+  --compiler-version v0.8.26+commit.8a97fa7a \
+  0x7075D321d3f586445609635763eF9Dbbc6B13127 \
+  src/GovernanceToken.sol:GovernanceToken
+
+================================================================================
+                          PROJECT RESOURCES
+================================================================================
+
+- GitHub: https://github.com/AlexAnon88/DAOTown
+- U2U Network: https://u2u.xyz
+- U2U Docs: https://docs.u2u.xyz
+- Lighthouse Storage: https://files.lighthouse.storage/
+
+================================================================================

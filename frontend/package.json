@@ -26,7 +26,7 @@
     "react-dom": "^18",
     "react-icons": "^5.3.0",
     "react-scroll-to-top": "^3.0.0",
-    "wagmi": "0.11.4"
+    "wagmi": "0.9.6"
   },
   "devDependencies": {
     "@types/node": "^20",
