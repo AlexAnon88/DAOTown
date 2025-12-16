@@ -41,6 +41,8 @@ export default function Footer() {
       bg={useColorModeValue("white", "gray.800")}
       color={useColorModeValue("gray.700", "gray.200")}
       marginTop={"auto"}
+      borderTop="1px"
+      borderColor={useColorModeValue("gray.200", "gray.700")}
     >
       <Container
         as={Stack}
@@ -52,13 +54,13 @@ export default function Footer() {
         align={{ base: "center", md: "center" }}
       >
         <b>
-          <Text>Made with 💙 during the Tech Fairness Hackathon 2025</Text>
+          <Text>Made with 💙 during the VietBUIDL Hackathon 2025</Text>
         </b>
 
         <Stack direction={"row"} spacing={6}>
           <SocialButton label={"GitHub"}>
             <a
-              href="https://github.com/adisuyash/DAOTown"
+              href="https://github.com/chetanchauhan64/DAO-Town"
               target="_blank"
               rel="noreferrer"
             >

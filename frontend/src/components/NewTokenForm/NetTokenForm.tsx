@@ -35,9 +35,10 @@ import {
   Stack,
   useToast,
   ring,
+  useColorModeValue,
 } from "@chakra-ui/react";
-import daomanagerabi from "../../utils/abis/daomanagerabi.json";
-import creategovernanceabi from "../../utils/abis/creategovernanceabi.json";
+import daomanagerabi from "../../utils/abis/DAOManager.json";
+import creategovernanceabi from "../../utils/abis/CreateGovernanceToken.json";
 import { useSession } from "next-auth/react";
 
 const Form2 = ({ getName, getSummary }) => {
@@ -287,7 +288,7 @@ export default function NewTokenForm() {
       );
       await tx.wait();
       console.log(tx);
-      const totalTokens = await createTokenContract.getTotalTokesnDeployed(
+      const totalTokens = await createTokenContract.getTotalTokensDeployed(
         userId
       );
       const mintedTokenAddress =
@@ -343,13 +344,27 @@ export default function NewTokenForm() {
         channelData
       );
       console.log(resp);
-      const channelId = resp.id;
+      
+      // Handle Discord channel creation failure gracefully
+      const channelId = resp?.id || "discord-channel-failed";
       const provider = new ethers.providers.Web3Provider(window.ethereum);
 
       const signer = provider.getSigner();
 
+      // Import network-aware contract addressing
+      const { getContractAddress } = await import('../../utils/contracts');
+      
+      // Get current network from provider
+      const network = await provider.getNetwork();
+      const currentChainId = Number(network.chainId);
+      const daoManagerAddress = getContractAddress(currentChainId, "DAOManager");
+      
+      console.log(`🚀 CREATING DAO ON:`);
+      console.log(`- Chain ID: ${currentChainId}`);
+      console.log(`- Contract: ${daoManagerAddress}`);
+      
       const contract = new ethers.Contract(
-        process.env.NEXT_PUBLIC_DAOMANAGER_ADDRESS,
+        daoManagerAddress,
         daomanagerabi,
         signer
       );
@@ -376,11 +391,21 @@ export default function NewTokenForm() {
 
       toast({
         title: "DAO Created",
-        description: `DAO created successfully. You can view it on explore page`,
+        description: `DAO created successfully. Redirecting to explore page...`,
         status: "success",
-        duration: 10000,
+        duration: 3000,
         isClosable: true,
       });
+
+      // Trigger refresh of explore page and redirect
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new Event('refreshDAOs'));
+      }
+      
+      // Redirect to explore page
+      setTimeout(() => {
+        window.location.href = '/explore';
+      }, 1500);
     }
   };
 
@@ -405,25 +430,27 @@ export default function NewTokenForm() {
       );
 
       toast({
-        title: "Error creating Discord Channel",
-        description: `Error creating Discord Channel: ${
-          error.response?.data || error.message
-        }`,
-        status: "error",
-        duration: 10000,
+        title: "Discord Channel Creation Failed",
+        description: "Continuing with DAO creation without Discord integration",
+        status: "warning",
+        duration: 5000,
         isClosable: true,
       });
+      
+      // Return a fallback response so the DAO creation can continue
+      return { id: null, error: true };
     }
   }
 
   return (
     <Box
       borderWidth="1px"
-      rounded="lg"
-      shadow="1px 1px 3px rgba(0,0,0,0.3)"
-      width="60%"
-      p={6}
-      m="10px auto"
+      rounded="xl"
+      shadow="xl"
+      maxWidth={800}
+      width="100%"
+      p={8}
+      bg={useColorModeValue("white", "gray.800")}
       as="form"
     >
       <Progress

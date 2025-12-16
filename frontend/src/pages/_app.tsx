@@ -8,6 +8,7 @@ import { SessionProvider } from "next-auth/react";
 import Head from "next/head";
 import WagmiProvider from "../utils/wagmiprovider";
 import Footer from "@/components/Footer";
+import "../utils/suppressConsoleErrors";
 
 const Navbar = dynamic(() => import("@/components/Navbar"), { ssr: false });
 
@@ -49,12 +50,22 @@ export default function App({
               style={{
                 display: "flex",
                 flexDirection: "column",
-                minHeight: "100vh",
+                height: "100vh",
+                overflow: "hidden",
               }}
             >
               <Navbar />
-              <Component {...pageProps} />
-              <Footer />
+              <div
+                style={{
+                  flex: 1,
+                  overflow: "auto",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <Component {...pageProps} />
+                <Footer />
+              </div>
             </div>
           </ChakraProvider>
         </SessionProvider>

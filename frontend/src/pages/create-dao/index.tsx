@@ -30,14 +30,15 @@ const CreateDao = () => {
   console.log(userId);
 
   return (
-    <>
+    <Box flex={1} display="flex" flexDirection="column" py={8}>
       {showBtn ? (
         <Box
           display="flex"
           justifyContent="space-evenly"
           alignItems="center"
-          height="80vh"
+          flex={1}
           flexDir={{ base: "column", md: "row" }}
+          px={4}
         >
           <Box textDecoration="none" _hover={{ textDecoration: "none" }}>
             <Image
@@ -120,9 +121,17 @@ const CreateDao = () => {
         </Box>
       ) : null}
 
-      {existingToken ? <ExistingTokenForm /> : null}
-      {newToken ? <NewTokenForm /> : null}
-    </>
+      {existingToken ? (
+        <Box flex={1} display="flex" alignItems="center" justifyContent="center" px={4}>
+          <ExistingTokenForm />
+        </Box>
+      ) : null}
+      {newToken ? (
+        <Box flex={1} display="flex" alignItems="center" justifyContent="center" px={4}>
+          <NewTokenForm />
+        </Box>
+      ) : null}
+    </Box>
   );
 };
 

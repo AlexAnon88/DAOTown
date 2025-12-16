@@ -1,65 +1,99 @@
-// @ts-nocheck comment
+"use client";
 import "@rainbow-me/rainbowkit/styles.css";
 import {
   getDefaultWallets,
   RainbowKitProvider,
   darkTheme,
 } from "@rainbow-me/rainbowkit";
-import { configureChains, createClient, WagmiConfig } from "wagmi";
-import { Chain } from "wagmi/chains";
-
-import { alchemyProvider } from "wagmi/providers/alchemy";
+import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { Chain } from "wagmi";
 
-const neox: Chain = {
-  id: 12227332,
-  name: "NeoX",
-  network: "NeoX T4",
-  iconUrl:
-    "https://5ire.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F844afe5f-3320-4342-8de3-3a3f72b47e5c%2FYqPdVlSA_400x400.jpeg?table=block&id=3b0c51d9-c1e3-46b7-8722-597f68dd6167&spaceId=3b3e9e83-94fd-4ad6-a9a2-f0376069eab0&width=250&userId=&cache=v2",
-  iconBackground: "#fff",
+// U2U Testnet (Nebulas)
+const u2uTestnet: Chain = {
+  id: 2484,
+  name: "U2U Network Nebulas",
+  network: "u2u-testnet",
   nativeCurrency: {
     decimals: 18,
-    name: "GAS",
-    symbol: "GAS",
+    name: "U2U",
+    symbol: "U2U",
   },
   rpcUrls: {
     default: {
-      http: ["https://neoxt4seed1.ngd.network"],
+      http: ["https://rpc-nebulas-testnet.u2u.xyz"],
+    },
+    public: {
+      http: ["https://rpc-nebulas-testnet.u2u.xyz"],
     },
   },
   blockExplorers: {
     default: {
-      name: "NeoX Testnet",
-      url: "https://xt4scan.ngd.network/",
+      name: "U2U Nebulas Explorer",
+      url: "https://testnet.u2uscan.xyz",
     },
   },
   testnet: true,
 };
 
-const { chains, provider } = configureChains(
-  [neox],
-  [
-    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID }),
-    publicProvider(),
-  ]
+// U2U Mainnet (Solaris)
+const u2uMainnet: Chain = {
+  id: 39,
+  name: "U2U Network Solaris",
+  network: "u2u-mainnet",
+  nativeCurrency: {
+    decimals: 18,
+    name: "U2U",
+    symbol: "U2U",
+  },
+  rpcUrls: {
+    default: {
+      http: ["https://rpc-mainnet.u2u.xyz"],
+    },
+    public: {
+      http: ["https://rpc-mainnet.u2u.xyz"],
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: "U2U Solaris Explorer",
+      url: "https://u2uscan.xyz",
+    },
+  },
+  testnet: false,
+};
+
+const { chains, publicClient } = configureChains(
+  [u2uMainnet, u2uTestnet],
+  [publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({
-  appName: "My RainbowKit App",
+  appName: "DAOTown",
+  projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || "daotown-u2u-mainnet",
   chains,
 });
 
-const wagmiClient = createClient({
+const config = createConfig({
   autoConnect: true,
   connectors,
-  provider,
+  publicClient,
+  logger: {
+    warn: (message) => {
+      // Suppress WalletConnect relayer warnings
+      if (message.includes('relayer') || message.includes('core')) return;
+      console.warn(message);
+    },
+  },
 });
+
+const queryClient = new QueryClient();
 
 function WagmiConnect(props: any) {
   return (
-    <>
-      <WagmiConfig client={wagmiClient}>
+    <WagmiConfig config={config}>
+      <QueryClientProvider client={queryClient}>
         <RainbowKitProvider
           chains={chains}
           theme={darkTheme({
@@ -71,8 +105,8 @@ function WagmiConnect(props: any) {
         >
           {props.children}
         </RainbowKitProvider>
-      </WagmiConfig>
-    </>
+      </QueryClientProvider>
+    </WagmiConfig>
   );
 }
 

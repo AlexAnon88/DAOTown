@@ -2,7 +2,7 @@
 import { useState, useRef, useContext } from "react";
 import { ethers } from "ethers";
 import axios from "axios";
-import daomanagerabi from "../../utils/abis/daomanagerabi.json";
+import daomanagerabi from "../../utils/abis/DAOManager.json";
 import {
   Progress,
   Box,
@@ -36,6 +36,7 @@ import {
   Stack,
   useToast,
   ring,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 
@@ -218,26 +219,25 @@ const Form3 = ({ getTokenAddress }) => {
 
   const fetchTokenDetails = async (address) => {
     try {
-      const provider = new ethers.providers.JsonRpcProvider(
-        process.env.NEXT_PUBLIC_RPC_URL
-      );
-      // Use your Ethereum provider
-      const contract = new ethers.Contract(
-        address,
-        [
-          "function symbol() view returns (string)",
-          "function name() view returns (string)",
-        ],
-        provider
-      );
+      // Import the ENS-free provider
+      const { fetchTokenDetailsU2U, validateAddress } = await import('../../utils/u2uProvider');
+      
+      // Validate address first
+      if (!validateAddress(address)) {
+        throw new Error("Invalid contract address format");
+      }
 
-      // Call the ERC-20 token contract to get the symbol and name
-      const symbol = await contract.symbol();
-      const name = await contract.name();
-
-      return { symbol, name };
+      // Use U2U-specific token fetcher
+      const tokenDetails = await fetchTokenDetailsU2U(address);
+      
+      return {
+        symbol: tokenDetails.symbol,
+        name: tokenDetails.name,
+      };
     } catch (error) {
-      throw error;
+      // Handle all errors gracefully
+      console.warn("Token fetch error:", error.message);
+      throw new Error("Unable to fetch token details. Please verify the contract address is a valid ERC-20 token on U2U Network.");
     }
   };
 
@@ -352,7 +352,8 @@ export default function ExistingTokenForm() {
         channelData
       );
       console.log(resp);
-      const channelId = resp.id;
+      // Handle Discord channel creation failure gracefully
+      const channelId = resp?.id || "discord-channel-failed";
       const provider = new ethers.providers.Web3Provider(window.ethereum);
 
       const signer = provider.getSigner();
@@ -428,11 +429,12 @@ export default function ExistingTokenForm() {
   return (
     <Box
       borderWidth="1px"
-      rounded="lg"
-      shadow="1px 1px 3px rgba(0,0,0,0.3)"
-      width="60%"
-      p={6}
-      m="10px auto"
+      rounded="xl"
+      shadow="xl"
+      maxWidth={800}
+      width="100%"
+      p={8}
+      bg={useColorModeValue("white", "gray.800")}
       as="form"
     >
       <Progress

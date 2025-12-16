@@ -29,6 +29,7 @@ import { ethers } from "ethers";
 import { Link } from "@chakra-ui/next-js";
 import { useAccount } from "wagmi";
 import { useSession } from "next-auth/react";
+import NetworkSwitcher from "./NetworkSwitcher";
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -37,12 +38,19 @@ export default function Navbar() {
 
   return (
     <>
-      <Box bg={useColorModeValue("white", "gray.800")} px={10}>
+      <Box
+        bg={useColorModeValue("white", "gray.800")}
+        px={10}
+        borderBottom="1px"
+        borderColor={useColorModeValue("gray.200", "gray.700")}
+        boxShadow="sm"
+      >
         <Flex
           h={16}
           alignItems="center"
           justifyContent="space-between"
           mx="auto"
+          maxW="1400px"
         >
           <IconButton
             size={"md"}
@@ -54,152 +62,83 @@ export default function Navbar() {
           <HStack
             spacing={8}
             alignItems={"center"}
-            fontSize="26px"
-            fontWeight="0"
-            ml="2"
-            color="brand.00"
+            fontSize="28px"
+            fontWeight="bold"
+            color={useColorModeValue("blue.600", "blue.300")}
           >
-            <Link href="/" mt={4}>
-              {/* <Image
-                src="/assets/logo.png"
-                alt="Logo"
-                width={170}
-                height={300}
-              /> */}
+            <Link href="/" _hover={{ textDecoration: "none" }}>
               DAOTown
             </Link>
           </HStack>
-          <Flex alignItems={"center"}>
-            <div style={{ display: "flex" }}>
-              {account.isConnected && (
+          <Flex alignItems={"center"} gap={2}>
+            <HStack
+              as={"nav"}
+              spacing={1}
+              display={{ base: "none", md: "flex" }}
+            >
+              <Link href="/explore" _hover={{ textDecoration: "none" }}>
+                <Button variant="ghost" size="md">
+                  Explore DAOs
+                </Button>
+              </Link>
+              {account.isConnected && session?.user && (
                 <>
-                  <HStack
-                    as={"nav"}
-                    spacing={4}
-                    display={{ base: "none", md: "flex" }}
-                    marginRight={4}
-                  >
-                    <Link href="/onboarding">
-                      <Button w="full" variant="ghost">
-                        Onboarding
-                      </Button>
-                    </Link>
-                  </HStack>
-                  {session?.user && (
-                    <>
-                      <HStack
-                        as={"nav"}
-                        spacing={4}
-                        display={{ base: "none", md: "flex" }}
-                        marginRight={4}
-                      >
-                        <Link href="/register">
-                          <Button w="full" variant="ghost">
-                            Register
-                          </Button>
-                        </Link>
-                      </HStack>
-                      <HStack
-                        as={"nav"}
-                        spacing={4}
-                        display={{ base: "none", md: "flex" }}
-                        marginRight={4}
-                      >
-                        <Link href="/create-dao">
-                          <Button w="full" variant="ghost">
-                            Create DAO
-                          </Button>
-                        </Link>
-                      </HStack>
-                      <HStack
-                        as={"nav"}
-                        spacing={4}
-                        display={{ base: "none", md: "flex" }}
-                        marginRight={4}
-                      >
-                        <Link href="/explore">
-                          <Button w="full" variant="ghost">
-                            Explore
-                          </Button>
-                        </Link>
-                      </HStack>
-
-                      <HStack
-                        as={"nav"}
-                        spacing={4}
-                        display={{ base: "none", md: "flex" }}
-                        marginRight={4}
-                      >
-                        <Link href="/profile">
-                          <Button w="full" variant="ghost">
-                            Profile
-                          </Button>
-                        </Link>
-                      </HStack>
-                    </>
-                  )}
+                  <Link href="/register" _hover={{ textDecoration: "none" }}>
+                    <Button variant="ghost" size="md">
+                      Register
+                    </Button>
+                  </Link>
+                  <Link href="/create-dao" _hover={{ textDecoration: "none" }}>
+                    <Button variant="ghost" size="md">
+                      Create DAO
+                    </Button>
+                  </Link>
+                  <Link href="/profile" _hover={{ textDecoration: "none" }}>
+                    <Button variant="ghost" size="md">
+                      Profile
+                    </Button>
+                  </Link>
                 </>
               )}
+            </HStack>
 
-              <HStack>
-                <ConnectButton
-                  accountStatus={{
-                    smallScreen: "avatar",
-                    largeScreen: "full",
-                  }}
-                />
-              </HStack>
-            </div>
+            <ConnectButton
+              accountStatus={{
+                smallScreen: "avatar",
+                largeScreen: "full",
+              }}
+            />
           </Flex>
         </Flex>
 
         {isOpen ? (
           <Box pb={4} display={{ md: "none" }}>
-            {account.isConnected && (
-              <>
-                <Stack as={"nav"} spacing={4}>
-                  <Link href="/onboarding">
+            <Stack as={"nav"} spacing={4}>
+              <Link href="/explore" _hover={{ textDecoration: "none" }}>
+                <Button w="full" variant="ghost">
+                  Explore DAOs
+                </Button>
+              </Link>
+              {account.isConnected && session?.user && (
+                <>
+                  <Link href="/register" _hover={{ textDecoration: "none" }}>
                     <Button w="full" variant="ghost">
-                      Onboarding
+                      Register
                     </Button>
                   </Link>
-                </Stack>
-
-                {session?.user && (
-                  <>
-                    <Stack as={"nav"} spacing={4}>
-                      <Link href="/register">
-                        <Button w="full" variant="ghost">
-                          Register
-                        </Button>
-                      </Link>
-                    </Stack>
-                    <Stack as={"nav"} spacing={4}>
-                      <Link href="/create-dao">
-                        <Button w="full" variant="ghost">
-                          Create DAO
-                        </Button>
-                      </Link>
-                    </Stack>
-                    <Stack as={"nav"} spacing={4}>
-                      <Link href="/explore">
-                        <Button w="full" variant="ghost">
-                          Explore
-                        </Button>
-                      </Link>
-                    </Stack>
-
-                    <Stack as={"nav"} spacing={4}>
-                      <Link href="/profile">
-                        <Button w="full" variant="ghost">
-                          Profile
-                        </Button>
-                      </Link>
-                    </Stack>
-                  </>
-                )}
-              </>
-            )}
+                  <Link href="/create-dao" _hover={{ textDecoration: "none" }}>
+                    <Button w="full" variant="ghost">
+                      Create DAO
+                    </Button>
+                  </Link>
+                  <Link href="/profile" _hover={{ textDecoration: "none" }}>
+                    <Button w="full" variant="ghost">
+                      Profile
+                    </Button>
+                  </Link>
+                </>
+              )}
+            </Stack>
           </Box>
         ) : null}
       </Box>

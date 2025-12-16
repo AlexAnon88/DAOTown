@@ -40,6 +40,8 @@ import { MdEdit } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import { LuCross } from "react-icons/lu";
 import maciwrapperabi from "../../../utils/abis/maciwrapperabi.json";
+import { getSafeChainId } from "../../../utils/networkUtils";
+import { useNetwork } from "wagmi";
 
 enum PollType {
   NOT_SELECTED = 0,
@@ -48,26 +50,26 @@ enum PollType {
   WEIGHTED_MULTIPLE_VOTE = 3,
 }
 
-enum EMode {
-  QV = 0,
-  NON_QV = 1,
-}
-
-const DaoPage = () => {
+const Maci = () => {
+  const { address } = useAccount();
+  const { chain } = useNetwork();
   const router = useRouter();
   const { daoId } = router.query;
-
+  const toast = useToast();
   const [signatureMessage, setSignatureMessage] = useState("");
   const { signMessageAsync } = useSignMessage({ message: signatureMessage });
   const [keyPair, setKeyPair] = useState(null);
   const [isKpGenerated, setIsKpGenerated] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { address } = useAccount();
   const [pollAddr, setPollAddr] = useState({
     pollAddr: "",
     pollId: "",
   });
+  enum EMode {
+    QV = 0,      // Quadratic Vote
+    NON_QV = 1,  // Non Quadratic Vote
+  }
 
   const [pollData, setPollData] = useState({
     title: "Dummy Title",
@@ -76,11 +78,11 @@ const DaoPage = () => {
     mode: EMode.QV,
     options: [""],
   });
+
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [submitState, setSubmitState] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [fetchedPolls, setFetchedPolls] = useState([]);
-  const toast = useToast();
 
   const handleAddOption = () => {
     setPollData({ ...pollData, options: [...pollData.options, ""] });
@@ -352,8 +354,16 @@ const DaoPage = () => {
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
+
+      // Get network-aware MACI contract address
+      const currentChainId = getSafeChainId(chain?.id);
+      const { getContractAddress } = await import("../../../utils/contracts");
+      const maciWrapperAddress = getContractAddress(currentChainId, "MaciWrapper");
+
+      console.log(`🗳️ Fetching polls from MACI contract: ${maciWrapperAddress} on chain ${currentChainId}`);
+
       const contract = new ethers.Contract(
-        "0xec5798703687a08475821DF5C6017980319FEF72",
+        maciWrapperAddress,
         maciwrapperabi,
         signer
       );
@@ -595,4 +605,4 @@ const DaoPage = () => {
   );
 };
 
-export default DaoPage;
+export default Maci;
