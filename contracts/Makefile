@@ -35,12 +35,16 @@ anvil :; anvil -m 'test test test test test test test test test test test junk' 
 
 NETWORK_ARGS := --rpc-url http://localhost:8545 --private-key $(DEFAULT_ANVIL_KEY) --broadcast
 
-ifeq ($(findstring --network neox,$(ARGS)),--network neox)
-	NETWORK_ARGS := --rpc-url https://neoxt4seed1.ngd.network --private-key $(PRIVATE_KEY) --broadcast -vvvv
+ifeq ($(findstring --network u2u_testnet,$(ARGS)),--network u2u_testnet)
+	NETWORK_ARGS := --rpc-url https://rpc-nebulas-testnet.u2u.xyz --private-key $(PRIVATE_KEY) --broadcast -vvvv
+endif
+
+ifeq ($(findstring --network u2u_mainnet,$(ARGS)),--network u2u_mainnet)
+	NETWORK_ARGS := --rpc-url https://rpc-mainnet.u2u.xyz --private-key $(PRIVATE_KEY) --broadcast -vvvv
 endif
 
 deploy:
-	@forge script --legacy --verifier sourcify --verifier-url https://neoxt4seed1.ngd.network --verify script/DeployContracts.s.sol:DeployContracts $(NETWORK_ARGS)
+	@forge script script/DeployContracts.s.sol:DeployContracts $(NETWORK_ARGS)
 
 # cast abi-encode "constructor(uint256)" 1000000000000000000000000 -> 0x00000000000000000000000000000000000000000000d3c21bcecceda1000000
 # Update with your contract address, constructor arguments and anything else
