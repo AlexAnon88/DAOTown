@@ -758,5 +758,137 @@
       "coordinatorPubkey": "macipk.0a1ce79a43fa676ee3d2882c79d9164a24d4a22bb6190e3d8fa25d97bffc069a",
       "useQuadraticVoting": true
     }
+  },
+  "u2uTestnet": {
+    "ConstantInitialVoiceCreditProxy": {
+      "deploy": true,
+      "amount": 99
+    },
+    "FreeForAllGatekeeper": {
+      "deploy": true
+    },
+    "MerkleProofGatekeeper": {
+      "deploy": false,
+      "root": "0x2461fcc4c0965cb7f482dd28f1ca8057b7a62a35e8b7a86bb3ad6523f4bb21c0"
+    },
+    "EASGatekeeper": {
+      "deploy": false,
+      "easAddress": "0x0000000000000000000000000000000000000000",
+      "schema": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "attester": "0x0000000000000000000000000000000000000000"
+    },
+    "GitcoinPassportGatekeeper": {
+      "deploy": false,
+      "decoderAddress": "0x0000000000000000000000000000000000000000",
+      "passingScore": 5
+    },
+    "ZupassGatekeeper": {
+      "deploy": false,
+      "signer1": "13908133709081944902758389525983124100292637002438232157513257158004852609027",
+      "signer2": "7654374482676219729919246464135900991450848628968334062174564799457623790084",
+      "eventId": "69c0caaa-c65d-5345-a20c-867774f18c67",
+      "zupassVerifier": "0x0000000000000000000000000000000000000000"
+    },
+    "SemaphoreGatekeeper": {
+      "deploy": false,
+      "semaphoreContract": "0x0000000000000000000000000000000000000000",
+      "groupId": 0
+    },
+    "MACI": {
+      "stateTreeDepth": 10,
+      "gatekeeper": "FreeForAllGatekeeper"
+    },
+    "VkRegistry": {
+      "stateTreeDepth": 10,
+      "intStateTreeDepth": 1,
+      "messageTreeDepth": 2,
+      "voteOptionTreeDepth": 2,
+      "messageBatchDepth": 1,
+      "zkeys": {
+        "qv": {
+          "processMessagesZkey": "./zkeys/ProcessMessages_10-2-1-2_test/ProcessMessages_10-2-1-2_test.0.zkey",
+          "tallyVotesZkey": "./zkeys/TallyVotes_10-1-2_test/TallyVotes_10-1-2_test.0.zkey",
+          "processWasm": "./zkeys/ProcessMessages_10-2-1-2_test/ProcessMessages_10-2-1-2_test_js/ProcessMessages_10-2-1-2_test.wasm",
+          "tallyWasm": "./zkeys/TallyVotes_10-1-2_test/TallyVotes_10-1-2_test_js/TallyVotes_10-1-2_test.wasm"
+        },
+        "nonQv": {
+          "processMessagesZkey": "./zkeys/ProcessMessagesNonQv_10-2-1-2_test/ProcessMessagesNonQv_10-2-1-2_test.0.zkey",
+          "tallyVotesZkey": "./zkeys/TallyVotesNonQv_10-1-2_test/TallyVotesNonQv_10-1-2_test.0.zkey",
+          "processWasm": "./zkeys/ProcessMessagesNonQv_10-2-1-2_test/ProcessMessagesNonQv_10-2-1-2_test_js/ProcessMessagesNonQv_10-2-1-2_test.wasm",
+          "tallyWasm": "./zkeys/TallyVotesNonQv_10-1-2_test/TallyVotesNonQv_10-1-2_test_js/TallyVotesNonQv_10-1-2_test.wasm"
+        }
+      }
+    },
+    "Poll": {
+      "pollDuration": 3600,
+      "coordinatorPubkey": "macipk.a6d3d86f81f76bd168ab28feefb0197277b693b109be40c891a916217b9e35ee",
+      "useQuadraticVoting": true
+    }
+  },
+  "u2uMainnet": {
+    "ConstantInitialVoiceCreditProxy": {
+      "deploy": true,
+      "amount": 99
+    },
+    "FreeForAllGatekeeper": {
+      "deploy": true
+    },
+    "MerkleProofGatekeeper": {
+      "deploy": false,
+      "root": "0x2461fcc4c0965cb7f482dd28f1ca8057b7a62a35e8b7a86bb3ad6523f4bb21c0"
+    },
+    "EASGatekeeper": {
+      "deploy": false,
+      "easAddress": "0x0000000000000000000000000000000000000000",
+      "schema": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "attester": "0x0000000000000000000000000000000000000000"
+    },
+    "GitcoinPassportGatekeeper": {
+      "deploy": false,
+      "decoderAddress": "0x0000000000000000000000000000000000000000",
+      "passingScore": 5
+    },
+    "ZupassGatekeeper": {
+      "deploy": false,
+      "signer1": "13908133709081944902758389525983124100292637002438232157513257158004852609027",
+      "signer2": "7654374482676219729919246464135900991450848628968334062174564799457623790084",
+      "eventId": "69c0caaa-c65d-5345-a20c-867774f18c67",
+      "zupassVerifier": "0x0000000000000000000000000000000000000000"
+    },
+    "SemaphoreGatekeeper": {
+      "deploy": false,
+      "semaphoreContract": "0x0000000000000000000000000000000000000000",
+      "groupId": 0
+    },
+    "MACI": {
+      "stateTreeDepth": 10,
+      "gatekeeper": "FreeForAllGatekeeper"
+    },
+    "VkRegistry": {
+      "stateTreeDepth": 10,
+      "intStateTreeDepth": 1,
+      "messageTreeDepth": 2,
+      "voteOptionTreeDepth": 2,
+      "messageBatchDepth": 1,
+      "zkeys": {
+        "qv": {
+          "processMessagesZkey": "./zkeys/ProcessMessages_10-2-1-2_test/ProcessMessages_10-2-1-2_test.0.zkey",
+          "tallyVotesZkey": "./zkeys/TallyVotes_10-1-2_test/TallyVotes_10-1-2_test.0.zkey",
+          "processWasm": "./zkeys/ProcessMessages_10-2-1-2_test/ProcessMessages_10-2-1-2_test_js/ProcessMessages_10-2-1-2_test.wasm",
+          "tallyWasm": "./zkeys/TallyVotes_10-1-2_test/TallyVotes_10-1-2_test_js/TallyVotes_10-1-2_test.wasm"
+        },
+        "nonQv": {
+          "processMessagesZkey": "./zkeys/ProcessMessagesNonQv_10-2-1-2_test/ProcessMessagesNonQv_10-2-1-2_test.0.zkey",
+          "tallyVotesZkey": "./zkeys/TallyVotesNonQv_10-1-2_test/TallyVotesNonQv_10-1-2_test.0.zkey",
+          "processWasm": "./zkeys/ProcessMessagesNonQv_10-2-1-2_test/ProcessMessagesNonQv_10-2-1-2_test_js/ProcessMessagesNonQv_10-2-1-2_test.wasm",
+          "tallyWasm": "./zkeys/TallyVotesNonQv_10-1-2_test/TallyVotesNonQv_10-1-2_test_js/TallyVotesNonQv_10-1-2_test.wasm"
+        }
+      }
+    },
+    "Poll": {
+      "pollDuration": 3600,
+      "coordinatorPubkey": "macipk.a6d3d86f81f76bd168ab28feefb0197277b693b109be40c891a916217b9e35ee",
+      "useQuadraticVoting": true
+    }
   }
 }
